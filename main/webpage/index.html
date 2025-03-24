@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<script src='jquery-3.3.1.min.js'></script>
+		<link rel="stylesheet" href="app.css">
+		<script async src="app.js"></script>
+		<title>ESP32 Udemy Course</title>
+	</head>
+	<body>
+	<header>
+		<h1>ESP32 Application Development</h1>
+	</header>
+	
+	<div id="EspSSID">
+		<h2>ESP32 SSID</h2>
+		<label for="ap_ssid">Access Point SSID: </label>
+		<div id="ap_ssid"></div>
+	</div>
+	<hr>
+
+	<div id="LocalTime">
+		<h2>SNTP Time Synchronization</h2>
+		<label for="local_time">Connect to WiFi for Local Time:</label>
+		<div id="local_time"></div>
+	</div>
+	<hr>
+
+		
+	<div id="OTA">
+	<h2>ESP32 Firmware Update</h2>
+		<label id="latest_firmware_label">Latest Firmware: </label>
+		<div id="latest_firmware"></div> 
+		<input type="file" id="selected_file" accept=".bin" style="display: none;" onchange="getFileInfo()" />
+		<div class="buttons">
+			<input type="button" value="Select File" onclick="document.getElementById('selected_file').click();" />
+			<input type="button" value="Update Firmware" onclick="updateFirmware()" />
+		</div>
+		<h4 id="file_info"></h4>	
+		<h4 id="ota_update_status"></h4>
+	</div>
+	<hr>
+			
+	<div id="WiFiConnect">
+		<h2>ESP32 WiFi Connect</h2>
+		<section>
+			<input id="connect_ssid" type="text" maxlength="32" placeholder="SSID" value="">
+			<input id="connect_pass" type="password" maxlength="64" placeholder="Password" value="">
+			<input type="checkbox" onclick="showPassword()">Show Password
+		</section>
+		<div class="buttons">
+			<input id="connect_wifi" type="button" value="Connect" />
+		</div>
+		<div id="wifi_connect_credentials_errors"></div>
+		<h4 id="wifi_connect_status"></h4>
+	</div>
+		
+	<div id="ConnectInfo">
+		<section>
+			<div id="connected_ap_label"></div> <div id="connected_ap"></div>
+		</section>
+		<div id="ip_address_label"></div> <div id="wifi_connect_ip"></div>
+		<div id="netmask_label"></div> <div id="wifi_connect_netmask"></div>
+		<div id="gateway_label"></div> <div id="wifi_connect_gw"></div>
+		<div class="buttons">
+			<input id="disconnect_wifi" type="button" value="Disconnect" />
+		</div>
+	</div>
+	<hr>
+	
+	<div class="card ethernet-card">
+	  <div class="card-header">
+	    <h2>Ethernet Configuration</h2>
+	  </div>
+	  <div class="card-body">
+	    <div class="row">
+	      <div class="col-md-6">
+	        <div class="form-group">
+	          <label><strong>MAC Address:</strong> <span id="macAddress">00:00:00:00:00:00</span></label>
+	        </div>
+	        
+	        <div class="form-group">
+	          <label><strong>Connection Type:</strong></label>
+	          <div class="form-check">
+	            <input class="form-check-input" type="radio" name="ipMode" id="dhcpRadio" value="dhcp" checked>
+	            <label class="form-check-label" for="dhcpRadio">
+	              DHCP (Automatic IP)
+	            </label>
+	          </div>
+	          <div class="form-check">
+	            <input class="form-check-input" type="radio" name="ipMode" id="staticIPRadio" value="static">
+	            <label class="form-check-label" for="staticIPRadio">
+	              Static IP
+	            </label>
+	          </div>
+	        </div>
+	
+	        <div class="form-group">
+	          <label for="staticIP">Static IP Address:</label>
+	          <input type="text" class="form-control" id="staticIP" placeholder="192.168.1.100" disabled>
+	        </div>
+	        <div class="form-group">
+	          <label for="staticSubnet">Subnet Mask:</label>
+	          <input type="text" class="form-control" id="staticSubnet" placeholder="255.255.255.0" disabled>
+	        </div>
+	        <div class="form-group">
+	          <label for="staticGateway">Gateway:</label>
+	          <input type="text" class="form-control" id="staticGateway" placeholder="192.168.1.1" disabled>
+	        </div>
+	
+	        <div class="form-group mt-3">
+	          <button type="button" id="ethConnectButton" class="btn btn-primary">Connect</button>
+	          <button type="button" id="ethDisconnectButton" class="btn btn-danger" disabled>Disconnect</button>
+	        </div>
+	      </div>
+	
+	      <div class="col-md-6">
+	        <div class="card connection-status">
+	          <div class="card-header">
+	            <h4>Connection Status</h4>
+	          </div>
+	          <div class="card-body">
+	            <div class="status-message">
+	              <strong>Status:</strong> <span id="statusMessage">Idle</span>
+	            </div>
+	            <div class="connection-info mt-3">
+	              <div><strong>Current Mode:</strong> <span id="connectionType">-</span></div>
+	              <div><strong>IP Address:</strong> <span id="ipAddress">-</span></div>
+	              <div><strong>Subnet Mask:</strong> <span id="subnetMask">-</span></div>
+	              <div><strong>Gateway:</strong> <span id="gateway">-</span></div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+		
+	</body>
+<html>
